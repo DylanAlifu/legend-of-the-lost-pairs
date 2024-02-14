@@ -1,11 +1,11 @@
 import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import { orange } from "@mui/material/colors";
+import { orange, purple } from "@mui/material/colors";
 
 const Navbar = () => {
   return (
-    <AppBar position="static" sx={{ bgcolor: orange[300] }}>
+    <AppBar position="static" sx={{ bgcolor: purple[300] }}>
       <Toolbar>
         <IconButton
           size="large"
