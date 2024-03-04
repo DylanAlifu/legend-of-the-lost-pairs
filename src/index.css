@@ -1,5 +1,21 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: lightgrey;
+  background-image: url(/public/assets/bgPhoto/954287-cartoon-backgrounds-2161x1291-smartphone.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+/* For tablets and smaller desktops */
+@media (max-width: 1024px) {
+  body {
+    background-size:300%; /* Adjust size for smaller screens */
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  body {
+    background-size:400%; /* Changes the scaling to ensure the image fits within the container */
+  }
 }

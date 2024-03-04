@@ -16,19 +16,17 @@ const generateCardData = (numberOfCards) => {
     }
   }
 
+  // making a copy (duplicate)
   imageIds = [...imageIds, ...imageIds];
-  //   imageIds = imageIds.concat(imageIds);
+  // imageIds = imageIds.concat(imageIds);
 
-  // sorting this twice just so Jack can rest assured
-  imageIds.sort(() => {
-    return Math.random() - 0.5;
-  });
+  // take the 2 arrays and shuffle again
   imageIds.sort(() => Math.random() - 0.5);
 
-  const cardData = imageIds.map((imageId, index) => {
+  const cardData = imageIds.map((imageIds, index) => {
     return {
       id: index + 1,
-      imageUrl: `/assets/${imageId}.webp`,
+      imageUrl: `/assets/icons/${imageIds}.png`,
       isFlipped: false,
       isMatched: false,
     };
