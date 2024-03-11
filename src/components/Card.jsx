@@ -19,13 +19,13 @@ const Card = ({ data }) => {
             backgroundImage: isFlipped
               ? "none"
               : `url(${"/assets/bgPhoto/logo.png"})`,
-            bgcolor: isFlipped ? "none" : "rgba(0, 0, 0, 0.2)",
+            bgcolor: isFlipped ? "none" : "rgba(0, 0, 0, 0.4)",
             backgroundSize: "90%",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
             borderRadius: "3%",
             "&:hover": {
-              bgcolor: isFlipped ? "none" : indigo[100],
+              bgcolor: isFlipped ? "none" : indigo[300],
             },
           }}
           onClick={() => handleCardClick(data)}

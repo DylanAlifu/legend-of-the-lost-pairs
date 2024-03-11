@@ -1,21 +1,22 @@
 body {
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   background-image: url(/public/assets/bgPhoto/954287-cartoon-backgrounds-2161x1291-smartphone.jpg);
-  background-size: 100%;
+  background-size: cover;
   background-repeat: no-repeat;
+  position: relative;
 }
 
-/* For tablets and smaller desktops */
-@media (max-width: 1024px) {
-  body {
-    background-size:300%; /* Adjust size for smaller screens */
-  }
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: -1;
 }
 
-/* For mobile devices */
-@media (max-width: 768px) {
-  body {
-    background-size:400%; /* Changes the scaling to ensure the image fits within the container */
-  }
-}
+
