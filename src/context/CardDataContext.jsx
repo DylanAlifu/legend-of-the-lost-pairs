@@ -1,10 +1,14 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { generateCardData, generateRandomNumber } from "../utils";
 import { Levels, Speeds } from "../constants";
+import { SoundContext } from "./SoundContext";
 
 const CardDataContext = createContext();
 
 const CardDataContextProvider = ({ children }) => {
+  const { playSuccessSound, playFailedSound } = useContext(SoundContext);
+
+  const [userName, setUserName] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameCompleted, setGameCompleted] = useState(false);
 
@@ -15,6 +19,7 @@ const CardDataContextProvider = ({ children }) => {
     generateCardData(level.numberOfCards)
   );
   const [flippedCard, setFlippedCard] = useState(null);
+  const [cardDataUpdating, setCardDataUpdating] = useState(false);
 
   const [startedTimeStamp, setStartedTimeStamp] = useState(null);
   const [diffSeconds, setDiffSeconds] = useState(0);
@@ -104,9 +109,12 @@ const CardDataContextProvider = ({ children }) => {
       return;
     }
 
+    setCardDataUpdating(true);
+
     // handle the situation where there is already a flipped card
     if (flippedCard.imageUrl === card.imageUrl) {
-      // if matched update isMatched w/ a timeout
+      // match
+      // update isMatched w/ a timeout
       const updatedCardData = cardData.map((cardItem) => {
         if (cardItem.id === card.id || cardItem.id === flippedCard.id) {
           return {
@@ -120,10 +128,13 @@ const CardDataContextProvider = ({ children }) => {
       });
 
       setTimeout(() => {
+        playSuccessSound();
         setCardData(updatedCardData);
+        setCardDataUpdating(false);
       }, speed);
     } else {
-      // no match, reset the data back to original
+      // no match
+      // reset the data back to original
       const updatedCardData = cardData.map((cardItem) => {
         return {
           ...cardItem,
@@ -132,7 +143,9 @@ const CardDataContextProvider = ({ children }) => {
       });
 
       setTimeout(() => {
+        playFailedSound();
         setCardData(updatedCardData);
+        setCardDataUpdating(false);
       }, speed);
     }
     // reset flippedCard
@@ -174,10 +187,12 @@ const CardDataContextProvider = ({ children }) => {
         gameCompleted,
         numberOfCards: level.numberOfCards,
         cardData,
+        cardDataUpdating,
         level,
         speed,
         moves: counter.moves,
         maxNumberOfHints: level.hints,
+        userName,
 
         startedTimeStamp,
         diffSeconds,
@@ -188,6 +203,7 @@ const CardDataContextProvider = ({ children }) => {
         setDiffHours,
         penaltyTime,
 
+        updateUserName: setUserName,
         handleHintClick,
         handleLevelChange,
         setSpeed,

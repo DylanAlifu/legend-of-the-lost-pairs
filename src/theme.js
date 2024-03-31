@@ -9,6 +9,13 @@ const theme = createTheme({
       light: indigo[300],
     },
   },
+  typography: {
+    poster: {
+      fontSize: "15px",
+      color: indigo[500],
+      fontWeight: 600,
+    },
+  },
 });
 
 export default theme;
