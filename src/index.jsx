@@ -8,12 +8,16 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { CardDataContextProvider } from "./context/CardDataContext";
+import { ThemeProvider } from "@mui/material";
+import theme from "./theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <CardDataContextProvider>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </CardDataContextProvider>
   </React.StrictMode>
 );

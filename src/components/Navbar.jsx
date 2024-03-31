@@ -4,6 +4,7 @@ import { indigo } from "@mui/material/colors";
 import { useContext } from "react";
 import { CardDataContext } from "../context/CardDataContext";
 import { Timer } from "./Timer";
+import { MoveCounter } from "./MoveCounter";
 
 const Navbar = () => {
   const { handleNewGame, gameStarted, gameCompleted } =
@@ -27,8 +28,13 @@ const Navbar = () => {
           </Button>
         </Box>
 
-        <Box id="navbar-right-side">
-          {gameStarted && !gameCompleted && <Timer />}
+        <Box id="navbar-right-side" display="flex" gap={2}>
+          {gameStarted && !gameCompleted && (
+            <>
+              <Timer />
+              <MoveCounter />
+            </>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

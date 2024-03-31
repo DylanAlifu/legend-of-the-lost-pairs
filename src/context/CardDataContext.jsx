@@ -15,6 +15,10 @@ const CardDataContextProvider = ({ children }) => {
   const [flippedCard, setFlippedCard] = useState(null);
 
   const [startedTimeStamp, setStartedTimeStamp] = useState(null);
+  const [counter, setCounter] = useState({
+    steps: 0,
+    moves: 0,
+  });
 
   const [diffSeconds, setDiffSeconds] = useState(0);
   const [diffMinutes, setDiffMinutes] = useState(0);
@@ -41,6 +45,10 @@ const CardDataContextProvider = ({ children }) => {
     setDiffSeconds(0);
     setDiffMinutes(0);
     setDiffHours(0);
+    setCounter({
+      steps: 0,
+      moves: 0,
+    });
   };
 
   const handleNewGame = () => {
@@ -65,6 +73,13 @@ const CardDataContextProvider = ({ children }) => {
     if (numberOfFlippedCards >= 2) {
       return;
     }
+
+    setCounter((prev) => {
+      return {
+        steps: prev.steps + 1,
+        moves: (prev.steps + 1) % 2 === 0 ? prev.moves + 1 : prev.moves,
+      };
+    });
 
     // update the card data to make isFlipped true
     const updatedCardData = cardData.map((cardItem) => {
@@ -134,6 +149,7 @@ const CardDataContextProvider = ({ children }) => {
         cardData,
         level,
         speed,
+        moves: counter.moves,
 
         startedTimeStamp,
         diffSeconds,

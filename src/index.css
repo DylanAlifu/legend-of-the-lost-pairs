@@ -9,14 +9,33 @@ body {
 }
 
 body::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.1);
   z-index: -1;
 }
 
-
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(3deg);
+    scale: 110%;
+  }
+  50% {
+    transform: rotate(-3deg);
+    scale: 110%;
+  }
+  75% {
+    transform: rotate(3deg);
+    scale: 110%;
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

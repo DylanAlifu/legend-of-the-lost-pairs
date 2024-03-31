@@ -18,7 +18,7 @@ const Card = ({ data }) => {
           sx={{
             backgroundImage: isFlipped
               ? "none"
-              : `url(${"/assets/bgPhoto/logo.png"})`,
+              : `url(${"/assets/bgPhoto/logo2.png"})`,
             bgcolor: isFlipped ? "none" : "rgba(0, 0, 0, 0.4)",
             backgroundSize: "90%",
             backgroundRepeat: "no-repeat",
@@ -26,12 +26,19 @@ const Card = ({ data }) => {
             borderRadius: "3%",
             "&:hover": {
               bgcolor: isFlipped ? "none" : indigo[300],
+              animationName: "wiggle",
+              animationDuration: "0.2s",
             },
           }}
           onClick={() => handleCardClick(data)}
         >
           {isFlipped ? (
-            <img src={imageUrl} alt={`card-${id}`} height="100%" />
+            <img
+              src={imageUrl}
+              alt={`card-${id}`}
+              loading="lazy"
+              height="100%"
+            />
           ) : null}
         </Box>
       )}

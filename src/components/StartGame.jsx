@@ -107,11 +107,6 @@ const StartGame = () => {
 
       <Button
         variant="contained"
-        sx={{
-          color: "white",
-          bgcolor: indigo[500],
-          "&:hover": { bgcolor: indigo[900] },
-        }}
         onClick={handleStartGame}
       >
         START THE GAME
