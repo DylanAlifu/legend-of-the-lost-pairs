@@ -1,7 +1,16 @@
 const Levels = {
-  "4x4": 16,
-  "6x6": 36,
-  "8x8": 64,
+  "4x4": {
+    numberOfCards: 16,
+    hints: 2,
+  },
+  "6x6": {
+    numberOfCards: 36,
+    hints: 3,
+  },
+  "8x8": {
+    numberOfCards: 64,
+    hints: 5,
+  },
 };
 
 const Speeds = {

@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { CardDataContext } from "../context/CardDataContext";
 
 const Card = ({ data }) => {
-  const { id, imageUrl, isFlipped, isMatched } = data;
+  const { id, imageUrl, isFlipped, isMatched, hint } = data;
   const { handleCardClick } = useContext(CardDataContext);
 
   return (
@@ -26,9 +26,8 @@ const Card = ({ data }) => {
             borderRadius: "3%",
             "&:hover": {
               bgcolor: isFlipped ? "none" : indigo[300],
-              animationName: "wiggle",
-              animationDuration: "0.2s",
             },
+            ...(hint ? hintAnimation : {}),
           }}
           onClick={() => handleCardClick(data)}
         >
@@ -47,3 +46,8 @@ const Card = ({ data }) => {
 };
 
 export { Card };
+
+const hintAnimation = {
+  animationName: "wiggle",
+  animationDuration: "0.3s",
+};

@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { generateCardData } from "../utils";
+import { generateCardData, generateRandomNumber } from "../utils";
 import { Levels, Speeds } from "../constants";
 
 const CardDataContext = createContext();
@@ -11,18 +11,22 @@ const CardDataContextProvider = ({ children }) => {
   const [level, setLevel] = useState(Levels["6x6"]);
   const [speed, setSpeed] = useState(Speeds.medium);
 
-  const [cardData, setCardData] = useState(generateCardData(level));
+  const [cardData, setCardData] = useState(
+    generateCardData(level.numberOfCards)
+  );
   const [flippedCard, setFlippedCard] = useState(null);
 
   const [startedTimeStamp, setStartedTimeStamp] = useState(null);
+  const [diffSeconds, setDiffSeconds] = useState(0);
+  const [diffMinutes, setDiffMinutes] = useState(0);
+  const [diffHours, setDiffHours] = useState(0);
+
+  const [penaltyTime, setPenaltyTime] = useState(0);
+
   const [counter, setCounter] = useState({
     steps: 0,
     moves: 0,
   });
-
-  const [diffSeconds, setDiffSeconds] = useState(0);
-  const [diffMinutes, setDiffMinutes] = useState(0);
-  const [diffHours, setDiffHours] = useState(0);
 
   useEffect(() => {
     const numberOfUnmatchedCards = cardData.filter(
@@ -39,7 +43,7 @@ const CardDataContextProvider = ({ children }) => {
     setStartedTimeStamp(new Date());
     setGameStarted(true);
     setGameCompleted(false);
-    const newCardData = generateCardData(level);
+    const newCardData = generateCardData(level.numberOfCards);
     setCardData(newCardData);
     setFlippedCard(null);
     setDiffSeconds(0);
@@ -49,12 +53,13 @@ const CardDataContextProvider = ({ children }) => {
       steps: 0,
       moves: 0,
     });
+    setPenaltyTime(0);
   };
 
   const handleNewGame = () => {
     setGameStarted(false);
     setGameCompleted(false);
-    const newCardData = generateCardData(level);
+    const newCardData = generateCardData(level.numberOfCards);
     setCardData(newCardData);
     setFlippedCard(null);
   };
@@ -136,8 +141,30 @@ const CardDataContextProvider = ({ children }) => {
 
   const handleLevelChange = (newLevel) => {
     setLevel(newLevel);
-    const newCardData = generateCardData(newLevel);
+    const newCardData = generateCardData(newLevel.numberOfCards);
     setCardData(newCardData);
+  };
+
+  const handleHintClick = () => {
+    setPenaltyTime((prev) => prev + 3);
+
+    const hintCards = cardData.filter((cardItem) => !cardItem.isMatched);
+    const randomIndex = generateRandomNumber(hintCards.length) - 1;
+    const targetCard = hintCards[randomIndex];
+
+    const updatedCardData = cardData.map((cardItem) => {
+      if (cardItem.imageUrl === targetCard.imageUrl) {
+        return {
+          ...cardItem,
+          hint: true,
+        };
+      }
+      return cardItem;
+    });
+    setCardData(updatedCardData);
+    setTimeout(() => {
+      setCardData(cardData);
+    }, 300);
   };
 
   return (
@@ -145,11 +172,12 @@ const CardDataContextProvider = ({ children }) => {
       value={{
         gameStarted,
         gameCompleted,
-        numberOfCards: level,
+        numberOfCards: level.numberOfCards,
         cardData,
         level,
         speed,
         moves: counter.moves,
+        maxNumberOfHints: level.hints,
 
         startedTimeStamp,
         diffSeconds,
@@ -158,7 +186,9 @@ const CardDataContextProvider = ({ children }) => {
         setDiffMinutes,
         diffHours,
         setDiffHours,
+        penaltyTime,
 
+        handleHintClick,
         handleLevelChange,
         setSpeed,
         handleStartGame,
