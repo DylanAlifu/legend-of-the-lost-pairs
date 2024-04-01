@@ -26,7 +26,7 @@ const generateCardData = (numberOfCards) => {
   const cardData = imageIds.map((imageIds, index) => {
     return {
       id: index + 1,
-      imageUrl: `/assets/icons/${imageIds}.png`,
+      imageUrl: `https://dylanawsbucket.s3.amazonaws.com/assets/Card+Game+Icons/${imageIds}.png`,
       isFlipped: false,
       isMatched: false,
     };
