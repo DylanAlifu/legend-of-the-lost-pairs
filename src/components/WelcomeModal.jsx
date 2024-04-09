@@ -42,16 +42,14 @@ const WelcomeModal = () => {
           gap: 2,
         }}
       >
-        <Typography variant="h6">Hi there! 👋</Typography>
-        <Box>
-          <Typography>
-            Welcome to the
+        <Box display="flex" flexDirection="column" textAlign="center" gap={2}>
+          <Typography variant="h6">Hi there! 👋</Typography>
+          <Box>
+            <Typography variant="h6">Welcome to the</Typography>
             <Typography variant="poster">
               🃏 Legend of the lost PAIRs 🃏
             </Typography>
-          </Typography>
-
-          <Typography>Enter your name to start.</Typography>
+          </Box>
         </Box>
 
         <TextField
