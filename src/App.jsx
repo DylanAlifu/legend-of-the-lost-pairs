@@ -6,19 +6,36 @@ import { StartGame } from "./components/StartGame";
 import { Box } from "@mui/material";
 import { GameCompletion } from "./components/GameCompletion";
 import { WelcomeModal } from "./components/WelcomeModal";
+import { Route, Routes } from "react-router-dom";
+import { LeaderboardPage } from "./pages/Leaderboard";
+import { SoundControls } from "./components/SoundControls";
 
 function App() {
   const { gameStarted, gameCompleted } = useContext(CardDataContext);
 
   return (
     <>
-      <Navbar />
-      <Box id="main-container" display="flex" justifyContent="center" mt={5}>
-        {gameStarted && <CardGrid />}
-        {gameCompleted && <GameCompletion />}
-        {!gameStarted && !gameCompleted && <StartGame />}
-      </Box>
-      <WelcomeModal />
+      <Routes>
+        <Route path="/" element={<Navbar />}>
+          <Route
+            index
+            element={
+              <>
+                {gameStarted && <CardGrid />}
+                {gameCompleted && <GameCompletion />}
+                {!gameStarted && !gameCompleted && <StartGame />}
+
+                <WelcomeModal />
+              </>
+            }
+          />
+          <Route path="leaderboard" element={<LeaderboardPage />} />
+
+          <Route path="*" element={<Box>404 NOT FOUND</Box>} />
+        </Route>
+      </Routes>
+
+      <SoundControls />
     </>
   );
 }

@@ -1,43 +1,60 @@
-import { AppBar, Box, Button, IconButton, Toolbar } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import { indigo } from "@mui/material/colors";
 import { useContext } from "react";
 import { CardDataContext } from "../context/CardDataContext";
 import { Timer } from "./Timer";
 import { MoveCounter } from "./MoveCounter";
+import { Link, Outlet } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
+import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 
 const Navbar = () => {
-  const { handleNewGame, gameStarted, gameCompleted } =
-    useContext(CardDataContext);
+  const { gameStarted, gameCompleted } = useContext(CardDataContext);
 
   return (
-    <AppBar position="static" sx={{ bgcolor: indigo[500] }}>
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Box id="navbar-left-side">
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Button color="inherit" sx={{ mx: 1 }} onClick={handleNewGame}>
-            New Game
-          </Button>
-        </Box>
+    <>
+      <AppBar position="static" sx={{ bgcolor: indigo[500] }}>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box display="flex" id="navbar-left-side" gap={3}>
+            <img
+              src="/assets/bgPhoto/pics.png"
+              alt="logo"
+              style={{ height: "50px" }}
+            />
+            <Button
+              component={Link}
+              to="/"
+              color="inherit"
+              startIcon={<HomeIcon />}
+            >
+              HOME
+            </Button>
 
-        <Box id="navbar-right-side" display="flex" gap={2}>
-          {gameStarted && !gameCompleted && (
-            <>
-              <Timer />
-              <MoveCounter />
-            </>
-          )}
-        </Box>
-      </Toolbar>
-    </AppBar>
+            <Button
+              component={Link}
+              to="/leaderboard"
+              color="inherit"
+              startIcon={<LeaderboardIcon />}
+            >
+              LEADERBOARD
+            </Button>
+          </Box>
+
+          <Box id="navbar-right-side" display="flex" gap={2}>
+            {gameStarted && !gameCompleted && (
+              <>
+                <Timer />
+                <MoveCounter />
+              </>
+            )}
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      <Box id="main-container" display="flex" justifyContent="center" mt={5}>
+        <Outlet />
+      </Box>
+    </>
   );
 };
 

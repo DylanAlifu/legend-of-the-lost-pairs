@@ -22,7 +22,7 @@ const Hint = () => {
   return (
     <>
       <Button
-        variant="outlined"
+        variant="contained"
         color="primary"
         startIcon={<TipsAndUpdatesIcon />}
         onClick={onHintClick}

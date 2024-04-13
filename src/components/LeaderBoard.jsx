@@ -14,7 +14,11 @@ import { indigo } from "@mui/material/colors";
 
 const LeaderBoard = ({ level, data }) => {
   const sortedRows = useMemo(() => {
-    return data.sort((a, b) => a.time - b.time).slice(0, 10);
+    if (data && data.length > 0) {
+      return data.sort((a, b) => a.time - b.time).slice(0, 10);
+    } else {
+      return [];
+    }
   }, [data]);
 
   return (
@@ -38,21 +42,29 @@ const LeaderBoard = ({ level, data }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {sortedRows.map((row, index) => (
-              <TableRow
-                key={row.name}
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                  "&:hover": { bgcolor: indigo[100] },
-                }}
-              >
-                <TableCell component="th" scope="row">
-                  {index + 1}
+            {sortedRows.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={3} align="center">
+                  No records found
                 </TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell align="right">{row.time}</TableCell>
               </TableRow>
-            ))}
+            ) : (
+              sortedRows.map((row, index) => (
+                <TableRow
+                  key={row.name}
+                  sx={{
+                    "&:last-child td, &:last-child th": { border: 0 },
+                    "&:hover": { bgcolor: indigo[100] },
+                  }}
+                >
+                  <TableCell component="th" scope="row">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell align="right">{row.time}</TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
