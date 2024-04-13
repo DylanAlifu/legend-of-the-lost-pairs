@@ -31,20 +31,14 @@ const Card = ({ data }) => {
           }}
           onClick={() => handleCardClick(data)}
         >
-          <img
-              src={imageUrl}
-              alt={`card-${id}`}
-              loading="lazy"
-              height="100%"
-            />
-          {/* {isFlipped ? (
+          {isFlipped ? (
             <img
               src={imageUrl}
               alt={`card-${id}`}
               loading="lazy"
               height="100%"
             />
-          ) : null} */}
+          ) : null}
         </Box>
       )}
     </>
